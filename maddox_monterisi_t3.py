@@ -3,6 +3,7 @@ Name: Maddox Monterisi
 Date: 4/2/26
 Description: creates a data dictionary of the most common words in Macbeth and Romeo and Juliet
 Bugs: none
+Sources: Will Everett taught me how to do the board
 Version 1.0
 '''
 
@@ -24,80 +25,81 @@ def get_player_move(board, player):
         print(f"Player {player}'s turn")
     
         try:
-            row = int(input("Enter your row: "))
+            row = int(input('Enter your row: '))
         except ValueError:
-            print("That is not a number.")
+            print('That is not a number.')
             continue
         try:
-            column = int(input("Enter a column: "))
+            column = int(input('Enter a column: '))
         except ValueError:
             print("That is not a number. ")
         
         if row < 1 or row > 3 or column < 1 or column > 3:
-            print("Number must be between 1 and 3. ")
+            print('Number must be between 1 and 3. ')
             continue
 
         row_index = row - 1
         column_index = column - 1
 
         if board[row_index][column_index] != " ":
-            print("That spot is already taken. Pick a different one.")
+            print('That spot is already taken. Pick a different one.')
             continue
         return row_index, column_index
 
 def check_winner(board):
 
     if board[0][0] == 'x' and board [0][1] == 'x' and board [0][2] == 'x':
-        return True
+        return 'X'
     elif board[1][0] == 'x' and board [1][1] == 'x' and board [1][2] == 'x':
-        return True
+        return 'X'
     elif board[2][0] == 'x' and board[2][1] == 'x' and board [2][2] == 'x':
-        return True
+        return 'X'
     
     elif board[0][0] == 'x' and board[1][0] == 'x' and board [2][0] == 'x':
-        return True
+        return 'X'
     elif board[1][0] == 'x' and board[1][1] == 'x' and board[1][2] == 'x':
-        return True
+        return 'X'
     elif board[2][0] == 'x' and board[2][1] == 'x' and board [2][2] == 'x':
-        return True
+        return 'X'
     
     elif board[0][0] == 'x' and board[1][1] == 'x' and board [2][2] == 'x':
-        return True
+        return 'X'
     elif board[2][0] == 'x' and board[1][1] == 'x' and board[0][2] == 'x':
-        return True
+        return 'X'
     
 
     if board[0][0] == 'o' and board [0][1] == 'o' and board [0][2] == '':
-        return True
+        return 'O'
     elif board[1][0] == 'o' and board [1][1] == 'o' and board [1][2] == 'o':
-        return True
+        return 'O'
     elif board[2][0] == 'o' and board[2][0] == 'o' and board [2][2] == 'o':
-        return True
+        return 'O'
     
     elif board[0][0] == 'o' and board[1][0] == 'o' and board [2][0] == 'o':
-        return True
+        return 'O'
     elif board[1][0] == 'o' and board[1][1] == 'o' and board[1][2] == 'o':
-        return True
+        return 'O'
     elif board[2][0] == 'o' and board[2][1] == 'o' and board [2][2] == 'o':
-        return True
+        return 'O'
     
     elif board[0][0] == 'o' and board[1][1] == 'o' and board [2][2] == 'o':
-        return True
+        return 'O'
     elif board[2][0] == 'o' and board[1][1] == 'o' and board[0][2] == 'o':
-        return True
+        return 'O'
  
 
 def is_draw(board):
   
     for row in range(3):
-        for column in range(3):
-            if board[row][column] == ' ':
-                return False
-            else:
-                return True
+        if board[row] == ' ':
+            return True
+    for column in range(3):
+        if board[column] == ' ':
+            return True
 
 
-def main():
+
+def play_game():
 
     board = [
         [" ", " ", " "],
@@ -105,7 +107,7 @@ def main():
         [" ", " ", " "]
     ]
     current_player = 'x'
-    print('Welcome to Tic-Tac-Toe! Player X goes first. ')
+    print('Welcome to Tic-Tac-Toe! Player x goes first. ')
     display_board(board)
 
     while True:
@@ -114,7 +116,7 @@ def main():
         display_board(board)
 
         winner = check_winner(board)
-        if winner is not None:
+        if winner is True:
             print(f'Player {winner} wins! ')
             break
 
@@ -125,17 +127,17 @@ def main():
         if current_player == 'x':
             current_player = 'o'
         elif current_player == 'o':
-            current_player == 'x'
+            current_player = 'x'
 
 
 
  
-if __name__ == "__main__":
+if __name__ == '__main__':
     while True:
-        main()
+        play_game()
  
-        play_again = input("Would you like to play again? (y/n): ").strip().lower()
+        play_again = input('Would you like to play again? (y/n): ').strip().lower()
  
-        if play_again != "y":
+        if play_again != 'y':
             print("Thanks for playing!")
             break
