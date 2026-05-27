@@ -28,7 +28,7 @@ def display_user_board(board):
 -------------------------------
 5  {board[4][0]}  |  {board[4][1]}  |  {board[4][2]}  |  {board[4][3]}  |  {board[4][4]}
 ''')
-    
+    #board
 
 def ai_move(count, row_list, column_list):
     '''
@@ -42,11 +42,11 @@ def ai_move(count, row_list, column_list):
     '''
     while count > 0:
 
-        random_row = random.randint(0, 4)
-        random_column = random.randint(0, 4)
-        row_list.append(random_row) 
-        column_list.append(random_column)
-        count = count - 1
+        random_row = random.randint(0, 4)  #chooses random row
+        random_column = random.randint(0, 4)   #chooses random column
+        row_list.append(random_row)     #adds the random row to the list
+        column_list.append(random_column)     #adds the random column to the list
+        count = count - 1    #takes one from the count
     
 
 def get_player_move(board, row_list, column_list):
@@ -60,40 +60,40 @@ def get_player_move(board, row_list, column_list):
     '''
     while True:
         try:
-            row = int(input('Enter your row: '))
+            row = int(input('Enter your row: '))  #enter the row
         except ValueError:
-            print('That is not a number.')
+            print('That is not a number.')    #if it is not a number
             continue
         try:
-            column = int(input('Enter a column: '))
+            column = int(input('Enter a column: '))   #enter the column
         except ValueError:
-            print("That is not a number. ")
+            print("That is not a number. ")    #if it is not a number
         
-        if row < 1 or row > 5 or column < 1 or column > 5:
+        if row < 1 or row > 5 or column < 1 or column > 5:   #has to be between 1 and 5
             print('Number must be between 1 and 5. ')
             continue
  
-        row_index = row - 1
+        row_index = row - 1      #converts input to index
         column_index = column - 1
  
         if board[row_index][column_index] == '🔥' or board[row_index][column_index] == '❌':
             print('You already guessed that square. Try again. ')
-            continue
-        
+            continue     #makes sure the user didn't already guess that spot
+
         number = 0
         while number < 4:
-            if row_index == row_list[number]:
+            if row_index == row_list[number]:  #process checks to see if the shot hit
                 if column_index == column_list[number]:
                     print('You hit! ')
-                    board[row_index][column_index] = '🔥'
-                    return True
+                    board[row_index][column_index] = '🔥'   #turns spot to fire emoji
+                    return True  #was hit
                 else:
-                    number += 1
+                    number += 1    
             else:
                     number += 1
-        board[row_index][column_index] = '❌' 
+        board[row_index][column_index] = '❌'   #if it doesn't hit, make it an X
         print('Its a miss! ')
-        return False
+        return False   #no hit
 
 
 
@@ -113,7 +113,7 @@ def play_game():
         ["🌊", "🌊", "🌊", "🌊", "🌊"],
         ["🌊", "🌊", "🌊", "🌊", "🌊"],
         ["🌊", "🌊", "🌊", "🌊", "🌊"],
-        ["🌊", "🌊", "🌊", "🌊", "🌊"],
+        ["🌊", "🌊", "🌊", "🌊", "🌊"],  #makes the board
     ]
     row_list = []
     column_list = []
@@ -121,26 +121,26 @@ def play_game():
     count = 4
     ships_hit = 0
     turns = 10
- 
-    ai_move(count, row_list, column_list)
- 
-    player_turn = '1'
+    #count of each variable
+    ai_move(count, row_list, column_list) #makes the ai choose spots
+    
+    player_turn = '1'  #first turn
  
     while True:
         if player_turn == '1':
-            player_turn = '2'
+            player_turn = '2'     #initially shows what turn user is on
         else:
             player_turn = '1'
  
-        display_user_board(board)
+        display_user_board(board)  #displays the board
         
-        if get_player_move(board, row_list, column_list) == True:
-            ships_hit += 1
-        turns -= 1
-        if ships_hit == count:
+        if get_player_move(board, row_list, column_list) == True:  #checks if the ship was hit
+            ships_hit += 1   #adds one to the count
+        turns -= 1    #takes one turn away
+        if ships_hit == count:    #if ships hit = 4 
             print("You won! ")
             break
-        elif turns == 0:
+        elif turns == 0:   #no more turns left, so you lost
             print("You lost! ")
             break
  
