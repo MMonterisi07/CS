@@ -21,8 +21,8 @@ def display_board(board):
 ------------------
 2  {board[1][0]}  |  {board[1][1]}  |  {board[1][2]}
 ------------------
-3  {board[2][0]}  |  {board[2][1]}  |  {board[2][2]}
-''')
+3  {board[2][0]}  |  {board[2][1]}  |  {board[2][2]}   
+''')  #board
     
 
 
@@ -36,30 +36,30 @@ def get_player_move(board, player):
         row_index, column_index
     '''
     while True:
-        print(f"Player {player}'s turn")
+        print(f"Player {player}'s turn")    #displays whose turn it is
     
         try:
-            row = int(input('Enter your row: '))
-        except ValueError:
+            row = int(input('Enter your row: '))    #prompts the user for a row
+        except ValueError:    #if it is not a number
             print('That is not a number.')
-            continue
-        try:
-            column = int(input('Enter a column: '))
-        except ValueError:
+            continue   #continues code
+        try:    
+            column = int(input('Enter a column: '))    #prompts user for a row
+        except ValueError:     #if it is not a number
             print("That is not a number. ")
-            continue
+            continue    #continues code
         
-        if row < 1 or row > 3 or column < 1 or column > 3:
+        if row < 1 or row > 3 or column < 1 or column > 3:    #makes sure row is in the right range
             print('Number must be between 1 and 3. ')
-            continue
+            continue   #continues code
  
-        row_index = row - 1
-        column_index = column - 1
+        row_index = row - 1       #converts input to index
+        column_index = column - 1     #converts input to index
  
-        if board[row_index][column_index] != " ":
+        if board[row_index][column_index] != " ":     #makes sure the spot is open
             print('That spot is already taken. Pick a different one.')
             continue
-        return row_index, column_index
+        return row_index, column_index  #returns row and column index
 
 def check_winner(board):
     '''
@@ -69,6 +69,8 @@ def check_winner(board):
     Returns: 
         'X' if x wins, 'O' if o wins, None if no winner yet
     '''
+
+    #vertical
     if board[0][0] == 'x' and board[0][1] == 'x' and board[0][2] == 'x':
         return 'X'
     elif board[1][0] == 'x' and board[1][1] == 'x' and board[1][2] == 'x':
@@ -76,6 +78,7 @@ def check_winner(board):
     elif board[2][0] == 'x' and board[2][1] == 'x' and board[2][2] == 'x':
         return 'X'
  
+    #horizontal
     elif board[0][0] == 'x' and board[1][0] == 'x' and board[2][0] == 'x':
         return 'X'
     elif board[0][1] == 'x' and board[1][1] == 'x' and board[2][1] == 'x':
@@ -83,11 +86,13 @@ def check_winner(board):
     elif board[0][2] == 'x' and board[1][2] == 'x' and board[2][2] == 'x':
         return 'X'
  
+    #diagonal
     elif board[0][0] == 'x' and board[1][1] == 'x' and board[2][2] == 'x':
         return 'X'
     elif board[2][0] == 'x' and board[1][1] == 'x' and board[0][2] == 'x':
         return 'X'
  
+    #vertical
     elif board[0][0] == 'o' and board[0][1] == 'o' and board[0][2] == 'o':
         return 'O'
     elif board[1][0] == 'o' and board[1][1] == 'o' and board[1][2] == 'o':
@@ -95,6 +100,7 @@ def check_winner(board):
     elif board[2][0] == 'o' and board[2][1] == 'o' and board[2][2] == 'o':
         return 'O'
  
+    #horizontal
     elif board[0][0] == 'o' and board[1][0] == 'o' and board[2][0] == 'o':
         return 'O'
     elif board[0][1] == 'o' and board[1][1] == 'o' and board[2][1] == 'o':
@@ -102,6 +108,7 @@ def check_winner(board):
     elif board[0][2] == 'o' and board[1][2] == 'o' and board[2][2] == 'o':
         return 'O'
  
+    #diagonal
     elif board[0][0] == 'o' and board[1][1] == 'o' and board[2][2] == 'o':
         return 'O'
     elif board[2][0] == 'o' and board[1][1] == 'o' and board[0][2] == 'o':
@@ -116,11 +123,11 @@ def is_draw(board):
     Returns: 
         True if the board is full, False if any empty square remains
     '''
-    for row in range(3):
-        for column in range(3):
-            if board[row][column] == ' ':
-                return False
-    return True
+    for row in range(3):    #for all the rows
+        for column in range(3):   #for all the columns
+            if board[row][column] == ' ':   #if the spot is empty
+                return False   #not a draw
+    return True    #if this is not true, it is a draw
 
 
 def play_game():
@@ -136,26 +143,26 @@ def play_game():
         [" ", " ", " "],
         [" ", " ", " "],
         [" ", " ", " "]
-    ]
-    current_player = 'x'
-    print('Welcome to Tic-Tac-Toe! Player x goes first. ')
-    display_board(board)
+    ]  #board
+    current_player = 'x'   #shows current
+    print('Welcome to Tic-Tac-Toe! Player x goes first. ')   
+    display_board(board)   #displays the board
  
     while True:
-        row, column = get_player_move(board, current_player)
-        board[row][column] = current_player
-        display_board(board)
+        row, column = get_player_move(board, current_player)     #gets the player move
+        board[row][column] = current_player    #the move is the current player
+        display_board(board)     #displays board after each turn
  
-        winner = check_winner(board)
-        if winner:
-            print(f'Player {winner} wins! ')
+        winner = check_winner(board)   #checks winner every turn
+        if winner:   #if there is a winner
+            print(f'Player {winner} wins! ')    #displays winner
             break
  
-        if is_draw(board):
+        if is_draw(board):   #if its a draw
             print('Its a draw! ')
             break
  
-        if current_player == 'x':
+        if current_player == 'x':    #checks who is up after every turn
             current_player = 'o'
         elif current_player == 'o':
             current_player = 'x'
@@ -163,10 +170,10 @@ def play_game():
  
 if __name__ == '__main__':
     while True:
-        play_game()
+        play_game()   #executes game
  
-        play_again = input('Would you like to play again? (y/n): ').strip().lower()
+        play_again = input('Would you like to play again? (y/n): ').strip().lower()  #asks if user wants to play again 
  
-        if play_again != 'y':
+        if play_again != 'y':    #if its not yes, end
             print("Thanks for playing!")
             break
